@@ -1,19 +1,17 @@
 import React from 'react'
-import Dados from './componentes/Dados'
+import Header from './componentes/Header'
+import Corpo from './componentes/Corpo'
 
 export default function App() {
 
-  const prop = 'Luis Henrique Silva Ferreira'
-  const cid = 'Martinopolis'
+  const proprietario = 'Luis Henrique Silva Ferreira'
+  const cidade = 'Martinopolis'
 
   return(
     <>
-      <Dados 
-      proprietario = {prop}
-      cidade = {cid} 
-      biblioteca='React' 
-      data_codificacao='28/10/2022'
-    />
+      <Header/>   {/* componente */}
+      <Corpo/>
+      
     </>
   )
 }
