@@ -1,0 +1,16 @@
+.texto3 {    /* cllasse 'texto' */
+  color: green;
+  font-size: 2em;
+}
+
+.texto4 {
+  color: brown;
+}
+
+.caixa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
