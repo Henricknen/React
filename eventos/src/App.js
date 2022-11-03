@@ -6,7 +6,7 @@ export default function App() {
 
   return(
     <>
-      <Led/>
+      <Led ligado= {ligado} setLigado = {setLigado}/>
     </>
   );
 }
