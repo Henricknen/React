@@ -28,6 +28,8 @@ export default function App() {
     }
   }
 
+  setInterval(mudaCor,1000)    // 'setInterval' chama a função 'mudaCor()' de segundo em segundo
+
   return(
     <>
     <h1 style={retCor(cor)}>Click no botão para mudar a cor...</h1>
