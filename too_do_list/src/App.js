@@ -3,25 +3,23 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-let arrayDaLista = useState(["Tarefa 1", "Tarefa 2"]);    // 'useState' vai retorna o estado e a função de alteera o valor da lista de tarefas
-let lista = arrayDaLista[0]
-console.log(lista);   // lista que está dentro do estado
-let funcaoAlterarLista = arrayDaLista[1];
+let [lista, setLista] = useState(["Tarefa 1", "Tarefa 2", "Tarefa 3", "Tarefa 4"]);    // 'useState' vai retorna o estado e a função de alteera o valor da lista de tarefas
+let [novoItem, setNovoItem] = useState("") // outro 'estado'
 
-
-  return (
-    <button onClick={() => {
-      funcaoAlterarLista (["Tarefa 3", "Tarefa 4"]);
-      // console.log(lista);
-    }}></button>
-    
-    // <ul>
-    //   <li>Tarefa 1</li>
-    //   <li>Tarefa 2</li>
-    //   <li>Tarefa 3</li>
-    //   <li>Tarefa 4</li>
-    // </ul>
+return(
+  <div>
+    <input value={novoItem} onChange={value => setNovoItem(value.target.value)} type="text"/>   
+    <button onClick={() => adicionarNovoItem()}>Adicionar</button>
+      <ul>
+        {lista.map(item => <li>{item}</li>)}
+      </ul>
+  </div>
   );
+
+  function adicionarNovoItem() {
+    setLista([...lista, novoItem]);   // adiciona novo intem em baixo dos itens ja existentes
+    setNovoItem("");    // zera o input depois de item adicionadao
+  }
 }
 
 export default App;
