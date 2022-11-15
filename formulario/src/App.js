@@ -2,7 +2,10 @@ import React, {useState} from 'react'   // fazendo import do ''useState'
 
 export default function App() {
 
-  const [nome, setNome] = useState('Digite seu nome')       // criação do 'state' com valor 'Digite seu nome' e função que vai manipula-lo chamada 'setNome'
+  const [nome, setNome] = useState('')       // criação do 'state' com função que vai manipula-lo chamada 'setNome'
+  const hanleChangNome =(e)=> {    // 'hanle' seria um manipulador que irá manipualar o changeNome com componente que manipulado 'e'
+    setNome(e.target.value)
+  }
 
   return (
     <>
@@ -11,7 +14,7 @@ export default function App() {
        type="text"
         name="fnome"
         value={nome}
-        onChange={(e)=> setNome(e.target.value)}   // 'onChange' quando for alterado chamará a função de manipulação de 'state'
+        onChange={(e)=> hanleChangNome(e)}   // 'onChange' ultilizando a função 'hanleChangNome'
       />
       <p>Nome digitado: {nome}</p>    {/* pegando o valor do 'state {nome}' */}
     </>
