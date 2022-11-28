@@ -52,6 +52,79 @@ export default function App() {
     )
   }
 
+  const verificaVitoria =()=> {   // função que vai percorre e verificar as linhas
+    let pontos = 0
+    let vitoria = false
+    for(let l = 0; l < 3; l++) {
+      pontos = 0;
+      for(let c = 0; c <= 3; c++) {    // para cada verificação de linha existe um 'for' que percorre as colunas
+        if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
+          pontos++
+        }
+      }
+      if(pontos >= 3) {
+        vitoria = true
+        break
+      }
+    }
+
+    for(let c = 0; c < 3; c++) {    // função que vai percorre e verificar as colunas  
+      pontos = 0
+      for(let l = 0; l <= 3; l++) {
+        if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
+          pontos++
+        }
+      }
+      if(pontos >= 3) {
+        vitoria = true
+        break
+      }
+    }
+    pontos = 0
+    for(let d = 0; d < 3; d++) {    // função que vai percorre e verificar as diagonais
+      if(jogo[d][d]) {
+        if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
+          pontos++
+        }
+      }
+    }
+    if(pontos >= 3) {
+      vitoria = true
+    }
+    pontos = 0    // verificando a outra diagonal
+    let l = 0
+    for(let c =2; c > 0; c--) {
+      if(jogo[l][c] == simboloAtual) {    
+        pontos++
+      }
+      l++
+    }
+    if(pontos >= 3) {
+      vitoria = true
+    }
+    return vitoria
+  }
+
+  const trocaJogador =()=> {
+    setSimboloAtual == 'X'? setSimboloAtual('O'): setSimboloAtual('X')
+  }
+
+  const retPos =(e)=> {
+    const p = e.target.getAttribute('data-pos')
+    const pos = [parseInt(p.substring(0, 1)), parseInt(p.substring(1, 2)]
+    return pos
+  }
+
+  const verificaEspacoVazio =()=> {
+    if(jogo[retPos(e)[0]][retPos(e)[1]] == '') {
+      return true
+    } else {
+      return false
+    }
+  }
+
+ 
+
   return(
     <>
 
