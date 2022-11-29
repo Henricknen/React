@@ -3,6 +3,7 @@ import React, {useState} from 'react'   // importando 'state'
 export default function App() {
 
   // estilos
+  
   const tabu = {
     display: 'flex',
     flexDirection: 'column'
@@ -52,7 +53,7 @@ export default function App() {
     )
   }
 
-  const BtnJogarNovmente =()=> {
+  const BtnJogarNovamente =()=> {
     if(!jogando) {
       return <button onClick={()=>reiniciar()}>Jogar Novamente</button>
     }
@@ -76,7 +77,7 @@ export default function App() {
 
     for(let c = 0; c < 3; c++) {    // função que vai percorre e verificar as colunas  
       pontos = 0
-      for(let l = 0; l <= 3; l++) {
+      for(let l = 0; l < 3; l++) {
         if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
           pontos++
         }
@@ -89,10 +90,8 @@ export default function App() {
 
     pontos = 0
     for(let d = 0; d < 3; d++) {    // função que vai percorre e verificar as diagonais
-      if(jogo[d][d]) {
-        if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
-          pontos++
-        }
+      if(jogo[d][d] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
+        pontos++
       }
     }
     if(pontos >= 3) {
@@ -113,7 +112,7 @@ export default function App() {
   }
 
   const trocaJogador =()=> {
-    setSimboloAtual == 'X'? setSimboloAtual('O'): setSimboloAtual('X')
+    simboloAtual == 'X'? setSimboloAtual('O'): setSimboloAtual('X')
   }
 
   const retPos =(e)=> {
@@ -137,11 +136,11 @@ export default function App() {
         trocaJogador()
         if(verificaVitoria()) {
           trocaJogador()
-          alert('Jogador' + simboloAtual + 'venceu')
+          alert('Jogador ' + simboloAtual + ' venceu!')
           setJogando(false)
         }
       } else {
-          alert('Este espaço não está disponivel, escolha outo')
+          alert('Este espaço não está disponivel, escolha outro...')
       }
     }
   }
@@ -163,7 +162,7 @@ export default function App() {
       {tabuleiro(jogo)}
     </div>
     <div>
-      {BtnJogarNovmente()}
+      {BtnJogarNovamente()}
     </div>
     </>
   );
