@@ -33,23 +33,29 @@ export default function App() {
   const tabuleiro =(j)=> {     // função que retornará o tabuleiro ja preenchido
     return(
       <div style={tabu}>
-        <div style={tabuLinha}>   {/* 'div' com tres linhas e tres colunas */
-          <div stye={casa} data-pos = '00' onClick= "">{j[0][0]}</div>// casa prenchida com o simbolo dessa posição
-          <div stye={casa} data-pos = '01' onClick= "">{j[0][1]}</div>   // linha '0' e coluna '1'
-          <div stye={casa} data-pos = '02' onClick= "">{j[0][2]}</div>       // linha '0' e coluna '2'
+        <div style={tabuLinha}>   
+          <div style={casa} data-pos = '00' onClick= {(e)=> jogar(e)}>{j[0][0]}</div>{/* casa prenchida com o simbolo dessa posição */}
+          <div style={casa} data-pos = '01' onClick= {(e)=> jogar(e)}>{j[0][1]}</div>   {/* linha '0' e coluna '1' */}
+          <div style={casa} data-pos = '02' onClick= {(e)=> jogar(e)}>{j[0][2]}</div>       {/* linha '0' e coluna '2' */}
         </div>
-        <div style={tabuLinha}>   {/* 'div' com tres linhas e tres colunas */
-          <div stye={casa} data-pos = '10' onClick= "">{j[1][0]}</div>// casa prenchida com o simbolo dessa posição
-          <div stye={casa} data-pos = '11' onClick= "">{j[1][1]}</div>   // linha '1' e coluna '1'
-          <div stye={casa} data-pos = '12' onClick= "">{j[1][2]}</div>       // linha '1' e coluna '2'
+        <div style={tabuLinha}>   
+          <div style={casa} data-pos = '10' onClick= {(e)=> jogar(e)}>{j[1][0]}</div>   {/* casa prenchida com o simbolo dessa posição */}
+          <div style={casa} data-pos = '11' onClick= {(e)=> jogar(e)}>{j[1][1]}</div>     {/* linha '1' e coluna '1' */}
+          <div style={casa} data-pos = '12' onClick= {(e)=> jogar(e)}>{j[1][2]}</div>         {/* linha '1' e coluna '2' */}
         </div>
-        <div style={tabuLinha}>   {/* 'div' com tres linhas e tres colunas */
-          <div stye={casa} data-pos = '20' onClick= "">{j[2][0]}</div>// casa prenchida com o simbolo dessa posição
-          <div stye={casa} data-pos = '21' onClick= "">{j[2][1]}</div>   // linha '2' e coluna '1'
-          <div stye={casa} data-pos = '22' onClick= "">{j[2][2]}</div>       // linha '2' e coluna '2'
+        <div style={tabuLinha}>   
+          <div style={casa} data-pos = '20' onClick= {(e)=> jogar(e)}>{j[2][0]}</div> {/* casa prenchida com o simbolo dessa posição */}
+          <div style={casa} data-pos = '21' onClick= {(e)=> jogar(e)}>{j[2][1]}</div>   {/* linha '2' e coluna '1' */}
+          <div style={casa} data-pos = '22' onClick= {(e)=> jogar(e)}>{j[2][2]}</div>       {/* linha '2' e coluna '2' */}
         </div>
       </div>
     )
+  }
+
+  const BtnJogarNovmente =()=> {
+    if(!jogando) {
+      return <button onClick={()=>reiniciar()}>Jogar Novamente</button>
+    }
   }
 
   const verificaVitoria =()=> {   // função que vai percorre e verificar as linhas
@@ -57,9 +63,9 @@ export default function App() {
     let vitoria = false
     for(let l = 0; l < 3; l++) {
       pontos = 0;
-      for(let c = 0; c <= 3; c++) {    // para cada verificação de linha existe um 'for' que percorre as colunas
+      for(let c = 0; c < 3; c++) {    // para cada verificação de linha existe um 'for' que percorre as colunas
         if(jogo[l][c] == simboloAtual) {    // se o 'state' jogo posição linha e couna for igual ao 'simboloAtual' se tem uma vitória 
-          pontos++
+          pontos++      
         }
       }
       if(pontos >= 3) {
@@ -80,6 +86,7 @@ export default function App() {
         break
       }
     }
+
     pontos = 0
     for(let d = 0; d < 3; d++) {    // função que vai percorre e verificar as diagonais
       if(jogo[d][d]) {
@@ -93,7 +100,7 @@ export default function App() {
     }
     pontos = 0    // verificando a outra diagonal
     let l = 0
-    for(let c =2; c > 0; c--) {
+    for(let c = 2; c >= 0; c--) {
       if(jogo[l][c] == simboloAtual) {    
         pontos++
       }
@@ -111,11 +118,11 @@ export default function App() {
 
   const retPos =(e)=> {
     const p = e.target.getAttribute('data-pos')
-    const pos = [parseInt(p.substring(0, 1)), parseInt(p.substring(1, 2)]
+    const pos = [parseInt(p.substring(0, 1)), parseInt(p.substring(1, 2))]
     return pos
   }
 
-  const verificaEspacoVazio =()=> {
+  const verificaEspacoVazio =(e)=> {
     if(jogo[retPos(e)[0]][retPos(e)[1]] == '') {
       return true
     } else {
@@ -123,11 +130,41 @@ export default function App() {
     }
   }
 
- 
+  const jogar =(e)=> {
+    if(jogando) {   // se jogo está rolando
+      if(verificaEspacoVazio(e)) {
+        jogo[retPos(e)[0]][retPos(e)[1]] = simboloAtual
+        trocaJogador()
+        if(verificaVitoria()) {
+          trocaJogador()
+          alert('Jogador' + simboloAtual + 'venceu')
+          setJogando(false)
+        }
+      } else {
+          alert('Este espaço não está disponivel, escolha outo')
+      }
+    }
+  }
+
+ const reiniciar =()=> {
+  setJogando(true)
+  setJogo(jogoInicial)
+  setSimboloAtual('X')
+ }
+
+
 
   return(
     <>
-
+    <div>
+      <p>Quem joga: {simboloAtual}</p>
+    </div>
+    <div>
+      {tabuleiro(jogo)}
+    </div>
+    <div>
+      {BtnJogarNovmente()}
+    </div>
     </>
   );
 }
