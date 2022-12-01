@@ -7,20 +7,17 @@ export default function ListaCarros(){      // trasnformando a chamada em um com
     const [carros, setCarros] = useState([])
     
     useEffect(()=> {        // ultilizando hulk
-        axios.get('https://apireact.henricknen.repl.co')        // 'axios' é quem realmente faz a busca o gerenciamento
-            .then(res => {                                                 // função anonima
-                const dadosCarros =  res.data
-                this.setCarros({dadosCarros})       // não precisa indicar o 'state' apenas o valor 'dadosCarros'
-            // this.setState({carros: dadosCarros})     // 'state' receberá 'dadosCarros'
-            })
+        fetch('https://apireact.henricknen.repl.co')
+            .then(res=> res.json())     // o retorno sreá em 'json'
+            .then(
+                (resultado)=> {
+                    setCarros(resultado)    // 'setCarros' é o 'state' que faz a atualização    
+                }
+            )
         }
     )
 
-    // componentDidMount() {       // este componente busca da 'api'
-
-    // }
-
-
+       
     return(
         <div>
             {carros.map(       
@@ -29,5 +26,5 @@ export default function ListaCarros(){      // trasnformando a chamada em um com
         </div>
     )
     
- }
+}
 
