@@ -1,28 +1,33 @@
-import React from "react"
+import React, {useState, useEffect} from "react"        // importando 'useState' e 'useEffect' que substituira a funções 'componentDidMount' e o 'state'
 import axios from  'axios'      // importando 'axios'
 
 
-export default class ListaCarros extends React.Component {
+export default function ListaCarros(){      // trasnformando a chamada em um componente 'funcional' com 'function'
 
-    state = {
-        carros : []
-    }
-
-    componentDidMount() {       // este componente busca da 'api'
+    const [carros, setCarros] = useState([])
+    
+    useEffect(()=> {        // ultilizando hulk
         axios.get('https://apireact.henricknen.repl.co')        // 'axios' é quem realmente faz a busca o gerenciamento
-            .then(res => {
+            .then(res => {                                                 // função anonima
                 const dadosCarros =  res.data
-                this.setState({carros: dadosCarros})     // 'state' receberá 'dadosCarros'
+                this.setCarros({dadosCarros})       // não precisa indicar o 'state' apenas o valor 'dadosCarros'
+            // this.setState({carros: dadosCarros})     // 'state' receberá 'dadosCarros'
             })
-    }
+        }
+    )
 
-    render() {
-        return(
-            <div>
-                {this.state.carros.map(       
-                    carro=> <div key = {carro.id}>{carro.id} - {carro.marca} - {carro.modelo}</div>
-                )}     
-            </div>
-        )
-    }
-}
+    // componentDidMount() {       // este componente busca da 'api'
+
+    // }
+
+
+    return(
+        <div>
+            {carros.map(       
+                carro=> <div key = {carro.id}>{carro.id} - {carro.marca} - {carro.modelo}</div>
+            )}     
+        </div>
+    )
+    
+ }
+
